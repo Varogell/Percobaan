@@ -1,0 +1,141 @@
+/* General Page Layout */
+body {
+    font-family: 'Nunito', sans-serif;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+}
+
+/* Background Gradient */
+.vh-100 {
+    height: 100vh;
+    background: linear-gradient(135deg, #00aaff, #0044cc);
+}
+
+/* Container for Custom Height */
+.h-custom {
+    height: calc(100% - 73px); /* Adjust height */
+}
+
+/* Card Form */
+.card {
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+}
+
+/* Form Styling */
+.form-outline {
+    position: relative;
+    margin-bottom: 1.5rem;
+}
+
+.form-control-lg {
+    border-radius: 25px;
+    padding: 1.2rem;
+    font-size: 1rem;
+}
+
+.form-control:focus {
+    border-color: #0044cc;
+    box-shadow: 0 0 5px rgba(0, 68, 204, 0.5);
+}
+
+/* Invalid Feedback */
+.invalid-feedback {
+    display: block;
+    color: red;
+    font-size: 0.875rem;
+}
+
+/* Button Styling */
+.btn-primary {
+    background-color: #0044cc;
+    border-color: #0044cc;
+    padding: 0.75rem 3rem;
+    font-size: 1.2rem;
+    border-radius: 25px;
+}
+
+.btn-primary:hover {
+    background-color: #0033a1;
+    border-color: #0033a1;
+}
+
+/* Links */
+.link-danger {
+    color: #e74a3b;
+}
+
+.link-danger:hover {
+    color: #c0392b;
+}
+
+/* Footer */
+.bg-primary {
+    background-color: #0044cc;
+}
+
+.text-white {
+    color: #fff;
+}
+
+.fab {
+    font-size: 1.5rem;
+    margin-right: 1rem;
+}
+
+.d-flex {
+    display: flex;
+}
+
+.justify-content-between {
+    justify-content: space-between;
+}
+
+.py-4 {
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+}
+
+.px-4 {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .vh-100 {
+        padding-top: 20px;
+    }
+
+    .container-fluid {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .form-control-lg {
+        font-size: 1rem;
+        padding: 1rem;
+    }
+
+    .btn-primary {
+        width: 100%;
+    }
+
+    .text-center {
+        text-align: center;
+    }
+
+    .link-danger {
+        display: block;
+        text-align: center;
+    }
+}

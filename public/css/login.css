@@ -1,0 +1,118 @@
+/* Pastikan html dan body mengisi seluruh layar */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: 'Nunito', sans-serif;
+}
+
+/* Styling untuk section dengan latar belakang gradient */
+.vh-100 {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;  /* Menjadikan form berada di tengah */
+    align-items: center;
+    background: linear-gradient(135deg, #00aaff, #0044cc);
+}
+
+/* Kolom form login */
+.col-md-8.col-lg-6.col-xl-4.offset-xl-1 {
+    background-color: white;
+    padding: 30px;  /* Mengurangi padding */
+    border-radius: 12px;  /* Membuat sudut lebih bulat */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 380px;  /* Memperkecil ukuran form */
+    margin-top: -40px;  /* Menaikkan form ke atas */
+}
+
+/* Styling untuk input dan label */
+.form-outline {
+    position: relative;
+    margin-bottom: 12px;  /* Mengurangi margin bawah */
+}
+
+.form-outline .form-control {
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    padding: 10px;  /* Mengurangi padding input */
+    font-size: 14px;  /* Mengurangi ukuran font input */
+}
+
+.form-outline .form-control:focus {
+    border-color: #0044cc;
+    box-shadow: 0 0 5px rgba(0, 68, 204, 0.5);
+}
+
+/* Label berada di atas input */
+.form-outline label {
+    position: absolute;
+    top: -10px; /* Posisikan label di atas input */
+    left: 15px;
+    font-size: 12px;
+    color: #777;
+    background-color: white;
+    padding: 0 5px;
+}
+
+/* Styling untuk input group dan ikon */
+.input-group-text {
+    background-color: #0044cc;
+    color: white;
+    border-radius: 8px 0 0 8px;
+}
+
+.input-group .form-control {
+    border-radius: 0 8px 8px 0;
+}
+
+/* Tombol login */
+.btn-primary {
+    width: 100%;
+    padding: 12px;  /* Mengurangi ukuran padding tombol */
+    font-size: 16px;  /* Mengurangi ukuran font tombol */
+    background-color: #0044cc;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.btn-primary:hover {
+    background-color: #0055ff;
+}
+
+/* Styling untuk tombol sosial media */
+.btn-outline-dark {
+    border-radius: 20px;
+    padding: 8px 25px;  /* Mengurangi padding tombol sosial media */
+    font-size: 14px;
+    margin-top: 10px;
+    transition: 0.3s;
+}
+
+.btn-outline-dark i {
+    margin-right: 10px;
+}
+
+.btn-outline-dark:hover {
+    background-color: #0044cc;
+    color: white;
+}
+
+/* Footer */
+.d-flex.flex-column.flex-md-row.text-center.text-md-start.justify-content-between.py-4 {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: #0044cc;
+    color: white;
+}
+
+.d-flex.flex-column.flex-md-row.text-center.text-md-start.justify-content-between.py-4 a {
+    color: white;
+    margin-right: 16px;
+}
+
+.d-flex.flex-column.flex-md-row.text-center.text-md-start.justify-content-between.py-4 a:hover {
+    color: #ffcc00;
+}
