@@ -39,14 +39,14 @@ class VideoController extends Controller
         Storage::delete('public/' . $video->path);
     } else {
         // Jika file video tidak ditemukan
-        return redirect()->route('videos.index')->with('error', 'File video tidak ditemukan!');
+        return redirect()->route('rekaman.index')->with('error', 'File video tidak ditemukan!');
     }
 
     // Menghapus data video dari database
     $video->delete();
 
     // Redirect dengan pesan sukses
-    return redirect()->route('videos.index')->with('success', 'Video berhasil dihapus!');
+    return redirect()->route('rekaman.index')->with('success', 'Video berhasil dihapus!');
     }
 
 }

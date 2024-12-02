@@ -1,8 +1,12 @@
+<!doctype html>
+<html lang="en">
 <head>
-    <link href="{{ asset('css/login.css') }}" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link href="{{ asset('css/login.css') }}" rel="stylesheet"> <!-- Link ke file CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
-
 @extends('layouts.app')
 
 @section('content')

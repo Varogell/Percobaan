@@ -22,4 +22,8 @@ class RekamanController extends Controller
     {
         return view('rekaman.Video');
     }
+    public function Sementara()
+    {
+        return view('rekaman.sementara');
+    }
 }

@@ -32,12 +32,21 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav me-auto">
                             @auth
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('rekaman.index') }}">{{ __('Data') }}</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('rekaman.in') }}">{{ __('Masuk') }}</a>
-                            </li>
+                                @if (auth()->user()->role === 'admin')
+                                    <!-- Link untuk Admin -->
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('rekaman.index') }}">{{ __('Data Rekaman') }}</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{route('rekaman.sementara')}}">{{ __('Tombol') }}</a>
+                                    </li>
+                                   
+                                @elseif (auth()->user()->role === 'user')
+                                    <!-- Link untuk User -->
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('rekaman.in') }}">{{ __('Masuk') }}</a>
+                                    </li>
+                                @endif
                             @endauth
                         </ul>
 
@@ -45,13 +54,14 @@
                             @guest
                                 @if (Route::has('login'))
                                     <li class="nav-item">
-                                        <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                        <a class="nav-link" href="{{ route('login') }}">{{ __('Masuk') }}</a>
                                     </li>
+                                   
                                 @endif
 
                                 @if (Route::has('register'))
                                     <li class="nav-item">
-                                        <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                        <a class="nav-link" href="{{ route('register') }}">{{ __('Daftar') }}</a>
                                     </li>
                                 @endif
                             @else
