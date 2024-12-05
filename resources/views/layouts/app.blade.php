@@ -38,13 +38,17 @@
                                         <a class="nav-link" href="{{ route('rekaman.index') }}">{{ __('Data Rekaman') }}</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="{{route('rekaman.sementara')}}">{{ __('Tombol') }}</a>
+                                        <a class="nav-link" href="{{ route('admin.stimulus.index') }}">{{ __('Upload Stimulus') }}</a>
                                     </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('admin.stimulus.create') }}">{{ __('Upload Stimulus') }}</a>
+                                    </li>
+                                  
                                    
                                 @elseif (auth()->user()->role === 'user')
                                     <!-- Link untuk User -->
                                     <li class="nav-item">
-                                        <a class="nav-link" href="{{ route('rekaman.in') }}">{{ __('Masuk') }}</a>
+                                        <a class="nav-link" href="{{ route('rekaman.in') }}">{{ __('Rekam') }}</a>
                                     </li>
                                 @endif
                             @endauth

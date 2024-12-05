@@ -1,4 +1,4 @@
-<head>
+<!-- <head>
     <!-- Head Elements lainnya -->
     <link rel="stylesheet" href="{{ asset('css/vidio.css') }}">
 </head>
@@ -137,4 +137,4 @@
         document.getElementById("clock").textContent = d.toLocaleTimeString();
     }, 1000);
 </script>
-@endpush
+@endpush -->

@@ -1,7 +1,3 @@
-<head>
-    <!-- Head Elements lainnya -->
-    <link rel="stylesheet" href="{{ asset('css/vidio.css') }}">
-</head>
 @extends('layouts.app')
 
 @section('content')
@@ -15,7 +11,7 @@
                         <span id="clock"></span>
                     </div>
                     <div class="card-body d-flex justify-content-center align-items-center">
-                        <video id="video" autoplay class="p-3 border" style="width: 80%; height: auto;"></video>
+                        <video id="cameraVideo" autoplay muted class="p-3 border" style="width: 80%; height: auto;"></video>
                     </div>
                 </div>
             </div>
@@ -24,13 +20,13 @@
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-header d-flex justify-content-between">
-                        <span>Video Preview</span>
+                        <span>Video Stimulus</span>
                     </div>
                     <div class="card-body">
-                        <!-- Video preview container -->
-                        <div id="videoPreviewContainer">
-                            <span id="status">Preview akan muncul setelah video direkam</span>
-                        </div>
+                        <!-- Video stimulus container -->
+                        <video id="stimulusVideo" width="100%" height="315" controls>
+                            <source src="/stimulus/kucing.mp4" type="video/mp4">
+                        </video>
                     </div>
                 </div>
             </div>
@@ -39,12 +35,14 @@
             <button id="startRecord" class="btn btn-primary mb-2">Mulai Rekam</button>
             <button id="stopRecord" class="btn btn-danger" disabled>Berhenti Rekam</button>
         </div>
+        <p id="status" class="text-center"></p>
     </div>
 @endsection
 
 @push('js')
 <script>
-    const video = document.getElementById('video');
+    const cameraVideo = document.getElementById('cameraVideo'); // Video dari kamera
+    const stimulusVideo = document.getElementById('stimulusVideo'); // Video stimulus
     const startButton = document.getElementById('startRecord');
     const stopButton = document.getElementById('stopRecord');
     const statusElement = document.getElementById('status');
@@ -57,10 +55,10 @@
         statusElement.style.color = isError ? 'red' : 'green';
     }
 
-    // Meminta akses kamera dan mikrofon
+    // Meminta akses kamera
     navigator.mediaDevices.getUserMedia({ video: true })
         .then(stream => {
-            video.srcObject = stream;
+            cameraVideo.srcObject = stream;
             mediaRecorder = new MediaRecorder(stream);
 
             mediaRecorder.ondataavailable = event => {
@@ -71,23 +69,8 @@
                 const blob = new Blob(chunks, { type: 'video/webm' });
                 chunks = [];
 
-                // Buat URL objek dari Blob video
+                // Simpan video di URL objek (agar bisa diputar)
                 const videoUrl = URL.createObjectURL(blob);
-
-                // Update status
-                setStatus('Rekaman selesai. Menampilkan preview...');
-
-                // Tampilkan video yang direkam di preview
-                const previewContainer = document.getElementById('videoPreviewContainer');
-                previewContainer.innerHTML = ''; // Clear previous content
-
-                const videoPreview = document.createElement('video');
-                videoPreview.controls = true;
-                videoPreview.style.width = "100%";
-                videoPreview.style.height = "auto";
-                videoPreview.src = videoUrl;  // Set video source
-
-                previewContainer.appendChild(videoPreview); // Add video element to the preview
 
                 // Kirim video ke server
                 const formData = new FormData();
@@ -111,14 +94,29 @@
                     }
                 })
                 .catch(error => setStatus('Terjadi kesalahan: ' + error.message, true));
+
+                // Opsional: Jika ingin menampilkan video yang sudah direkam di browser
+                const previewContainer = document.getElementById('videoPreviewContainer');
+                const videoPreview = document.createElement('video');
+                videoPreview.controls = true;
+                videoPreview.src = videoUrl;  // URL yang mengarah ke Blob
+                previewContainer.innerHTML = '';  // Kosongkan container preview
+                previewContainer.appendChild(videoPreview);  // Tambahkan video preview
             };
         })
         .catch(error => setStatus('Gagal mengakses kamera: ' + error.message, true));
 
     // Event saat tombol "Mulai Rekam" diklik
     startButton.addEventListener('click', () => {
+        // Mulai rekam video
         mediaRecorder.start();
         setStatus('Merekam...');
+        cameraVideo.play();
+        
+        // Putar video stimulus dan reset waktu ke awal
+        stimulusVideo.currentTime = 0;
+        stimulusVideo.play();
+        
         startButton.disabled = true;
         stopButton.disabled = false;
     });
@@ -127,6 +125,8 @@
     stopButton.addEventListener('click', () => {
         mediaRecorder.stop();
         setStatus('Rekaman selesai.');
+        cameraVideo.pause();
+        stimulusVideo.pause(); // Hentikan video stimulus
         startButton.disabled = false;
         stopButton.disabled = true;
     });

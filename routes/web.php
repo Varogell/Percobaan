@@ -4,6 +4,7 @@ use App\Http\Controllers\RekamanController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\VideoController;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Admin\StimulusController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,9 +30,9 @@ Route::get('/rekaman', [RekamanController::class, 'index'])
 Route::get('/rekaman/sign_in', [RekamanController::class, 'signIn'])
     ->middleware('checkRole:user') // Hanya user yang bisa mengakses
     ->name('rekaman.in');
-Route::get('/rekaman/sementara', [RekamanController::class, 'sementara'])
-    ->middleware('checkRole:admin') // Hanya user yang bisa mengakses
-    ->name('rekaman.sementara');
+// Route::get('/rekaman/sementara', [RekamanController::class, 'sementara'])
+//     ->middleware('checkRole:admin') // Hanya user yang bisa mengakses
+//     ->name('rekaman.sementara');
 
 // Authentication Routes
 Auth::routes();
@@ -44,7 +45,8 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])
 // Upload Video (Hanya Admin yang Bisa Mengunggah Video)
 Route::post('/upload-video', [VideoController::class, 'store'])
     ->middleware('checkRole:admin'); // Hanya admin yang bisa mengunggah video
-
+Route::post('/upload-video', [VideoController::class, 'store'])
+    ->middleware('checkRole:user'); // Hanya admin yang bisa mengunggah video
 // Rute Hapus Video (Hanya Admin yang Bisa Menghapus Video)
 Route::delete('/videos/{video}', [VideoController::class, 'destroy'])
     ->middleware('checkRole:admin') // Hanya admin yang bisa menghapus video
@@ -62,3 +64,13 @@ Route::get('/user/dashboard', function () {
 
 // Rute Logout (Dari LoginController)
 Route::post('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
+
+
+//route untuk vidio stimulus
+Route::prefix('admin')->group(function () {
+    Route::get('/stimulus', [StimulusController::class, 'index'])->name('admin.stimulus.index');
+    Route::get('/stimulus/create', [StimulusController::class, 'create'])->name('admin.stimulus.create');
+    Route::post('/stimulus', [StimulusController::class, 'store'])->name('admin.stimulus.store');
+    Route::patch('/stimulus/{stimulus}/toggle', [StimulusController::class, 'togglePublish'])->name('admin.stimulus.toggle');
+});
+
