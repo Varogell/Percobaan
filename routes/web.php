@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\VideoController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Admin\StimulusController;
-
+use App\Http\Controllers\RealSenseController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -27,7 +27,7 @@ Route::get('/rekaman', [RekamanController::class, 'index'])
     ->name('rekaman.index');
 
 // Rute Sign In untuk User (Hanya User yang Bisa Mengakses)
-Route::get('/rekaman/sign_in', [RekamanController::class, 'signIn'])
+Route::get('/rekaman/rekam', [RekamanController::class, 'signIn'])
     ->middleware('checkRole:user') // Hanya user yang bisa mengakses
     ->name('rekaman.in');
 // Route::get('/rekaman/sementara', [RekamanController::class, 'sementara'])
@@ -43,14 +43,14 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])
     ->name('home');
 
 // Upload Video (Hanya Admin yang Bisa Mengunggah Video)
-Route::post('/upload-video', [VideoController::class, 'store'])
-    ->middleware('checkRole:admin'); // Hanya admin yang bisa mengunggah video
-Route::post('/upload-video', [VideoController::class, 'store'])
-    ->middleware('checkRole:user'); // Hanya admin yang bisa mengunggah video
+// Route::post('/upload-video', [VideoController::class, 'store'])
+//     ->middleware('checkRole:admin'); // Hanya admin yang bisa mengunggah video
+// Route::post('/upload-video', [VideoController::class, 'store'])
+//     ->middleware('checkRole:user'); // Hanya admin yang bisa mengunggah video
 // Rute Hapus Video (Hanya Admin yang Bisa Menghapus Video)
-Route::delete('/videos/{video}', [VideoController::class, 'destroy'])
-    ->middleware('checkRole:admin') // Hanya admin yang bisa menghapus video
-    ->name('videos.destroy');
+// Route::delete('/videos/{video}', [VideoController::class, 'destroy'])
+//     ->middleware('checkRole:admin') // Hanya admin yang bisa menghapus video
+//     ->name('videos.destroy');
 
 // Rute untuk Admin (Dashboard Admin)
 Route::get('/admin/dashboard', function () {
@@ -74,3 +74,13 @@ Route::prefix('admin')->group(function () {
     Route::patch('/stimulus/{stimulus}/toggle', [StimulusController::class, 'togglePublish'])->name('admin.stimulus.toggle');
 });
 
+Route::get('/camera-feed', function () {
+    return response()->stream(function () {
+        $stream = file_get_contents('http://127.0.0.1:5000/video_feed');
+        echo $stream;});
+});
+
+
+
+// Route::get('/realsense/capture', [RealSenseController::class, 'captureFrame']);
+// Route::resource('videos', VideoController::class);
